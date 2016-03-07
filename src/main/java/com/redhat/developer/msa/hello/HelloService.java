@@ -28,11 +28,13 @@ public class HelloService {
     @GET
     @Path("/")
     public String sayHello() {
+        String hostname = null; 
         try {
-            return "Hello from " + InetAddress.getLocalHost().getHostName();
+            hostname = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-            return "local host name could not be resolved into an address.";
+            hostname = "[local host name could not be resolved into an address]";
         }
+        return "Hello from " + hostname;
     }
 
 }
