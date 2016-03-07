@@ -18,9 +18,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Red Hat MSA: hello</name>
-	<description>Hello microservice using EAP</description>
+	<description>Hello microservice running on EAP</description>
 
-	<url>http://wildfly.org</url>
+	<url>http://developer.redhat.com/</url>
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
