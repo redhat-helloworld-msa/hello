@@ -12,6 +12,14 @@ Build and Deploy hello
 
 4. This will deploy `target/hello.war` to the running instance of the server.
 
+Access the application
+----------------------
+
+The application will be running at the following URL:
+
+http://localhost:8080/hello/rest/hello
+
+
 Undeploy the Archive
 --------------------
 
