@@ -1,11 +1,11 @@
 # hello
 Hello microservice using Java EE (JAX-RS) on EAP
 
-Build and Deploy Katapult
+Build and Deploy hello
 -------------------------
 
 1. Make sure you have started the JBoss EAP server as described above.
-2. Open a command prompt and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this microservice.
 3. Type this command to build and deploy the archive:
 
         mvn clean install wildfly:deploy
