@@ -65,9 +65,9 @@
 			<!-- JBoss distributes a complete set of Java EE 7 APIs including a Bill
 				of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
 				of artifacts. We use this here so that we always get the correct versions
-				of artifacts. Here we use the wildfly-javaee7-with-tools stack (you can 
+				of artifacts. Here we use the wildfly-javaee7-with-tools stack (you can
 				read
-				this as the JBoss stack of the Java EE 7 APIs, with some extras tools 
+				this as the JBoss stack of the Java EE 7 APIs, with some extras tools
 				for
 				your project, such as Arquillian for testing) -->
 			<dependency>
@@ -100,6 +100,19 @@
 			<artifactId>resteasy-jaxrs</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.spec.javax.json</groupId>
+			<artifactId>jboss-json-api_1.0_spec</artifactId>
+		</dependency>
+
+		<!-- Add Apache HTTP Client (for chaining invocation) -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

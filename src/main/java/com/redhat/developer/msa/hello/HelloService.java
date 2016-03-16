@@ -16,17 +16,28 @@
  */
 package com.redhat.developer.msa.hello;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
-@Path("/hello")
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
+@Path("/")
 public class HelloService {
 
     @GET
-    @Path("/")
+    @Path("/hello")
     public String sayHello() {
         String hostname = null;
         try {
@@ -35,6 +46,32 @@ public class HelloService {
             hostname = "[local host name could not be resolved into an address]";
         }
         return "Hello from " + hostname;
+    }
+
+    @GET
+    @Path("/hello-chaining")
+    public String sayHelloChaining() {
+        JsonArrayBuilder jab = Json.createArrayBuilder();
+        jab.add(sayHello());
+        try {
+            String bonJourResponse = getBonjourResponse();
+            JsonArray responseArray = Json.createReader(new StringReader(bonJourResponse)).readArray();
+            responseArray.forEach(service -> jab.add(service));
+        } catch (Exception e) {
+            jab.add("Error: " + e.getMessage());
+        }
+        return jab.build().toString();
+    }
+
+    private String getBonjourResponse() throws IOException {
+        RequestConfig requestConfig = RequestConfig.custom()
+            .setConnectTimeout(2000)
+            .setConnectionRequestTimeout(2000)
+            .build();
+        HttpGet httpGet = new HttpGet("http://ola:8080/ola-chaining");
+        httpGet.setConfig(requestConfig);
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        return EntityUtils.toString(httpClient.execute(httpGet).getEntity());
     }
 
 }

@@ -4,7 +4,7 @@ Hello microservice using Java EE (JAX-RS) on EAP
 Build and Deploy hello
 -------------------------
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the JBoss EAP server
 2. Open a command prompt and navigate to the root directory of this microservice.
 3. Type this command to build and deploy the archive:
 
@@ -15,10 +15,7 @@ Build and Deploy hello
 Access the application
 ----------------------
 
-The application will be running at the following URL:
-
-http://localhost:8080/hello/rest/hello
-
+The application will be running at the following URL: <http://localhost:8080/hello/rest/hello>
 
 Undeploy the Archive
 --------------------
