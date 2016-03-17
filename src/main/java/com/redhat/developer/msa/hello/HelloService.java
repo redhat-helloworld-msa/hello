@@ -54,16 +54,16 @@ public class HelloService {
         JsonArrayBuilder jab = Json.createArrayBuilder();
         jab.add(sayHello());
         try {
-            String bonJourResponse = getBonjourResponse();
+            String bonJourResponse = getOlaResponse();
             JsonArray responseArray = Json.createReader(new StringReader(bonJourResponse)).readArray();
             responseArray.forEach(service -> jab.add(service));
         } catch (Exception e) {
-            jab.add("Error: " + e.getMessage());
+            jab.add("Generic Ola response");
         }
         return jab.build().toString();
     }
 
-    private String getBonjourResponse() throws IOException {
+    private String getOlaResponse() throws IOException {
         RequestConfig requestConfig = RequestConfig.custom()
             .setConnectTimeout(2000)
             .setConnectionRequestTimeout(2000)
