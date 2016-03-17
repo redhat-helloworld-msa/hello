@@ -43,7 +43,7 @@ public class HelloService {
         try {
             hostname = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-            hostname = "[local host name could not be resolved into an address]";
+            hostname = "unknown";
         }
         return "Hello from " + hostname;
     }
