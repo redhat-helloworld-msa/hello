@@ -54,8 +54,8 @@ public class HelloService {
         JsonArrayBuilder jab = Json.createArrayBuilder();
         jab.add(sayHello());
         try {
-            String bonJourResponse = getOlaResponse();
-            JsonArray responseArray = Json.createReader(new StringReader(bonJourResponse)).readArray();
+            String olaResponse = getOlaResponse();
+            JsonArray responseArray = Json.createReader(new StringReader(olaResponse)).readArray();
             responseArray.forEach(service -> jab.add(service));
         } catch (Exception e) {
             jab.add("Generic Ola response");
