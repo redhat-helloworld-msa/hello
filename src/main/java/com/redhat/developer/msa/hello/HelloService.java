@@ -58,7 +58,7 @@ public class HelloService {
             JsonArray responseArray = Json.createReader(new StringReader(olaResponse)).readArray();
             responseArray.forEach(service -> jab.add(service));
         } catch (Exception e) {
-            jab.add("Generic Ola response");
+            jab.add("Generic Ola response (Fallback!)");
         }
         return jab.build().toString();
     }
@@ -68,7 +68,7 @@ public class HelloService {
             .setConnectTimeout(2000)
             .setConnectionRequestTimeout(2000)
             .build();
-        HttpGet httpGet = new HttpGet("http://ola:8080/ola-chaining");
+        HttpGet httpGet = new HttpGet("http://ola:8080/api/ola-chaining");
         httpGet.setConfig(requestConfig);
         HttpClient httpClient = HttpClientBuilder.create().build();
         return EntityUtils.toString(httpClient.execute(httpGet).getEntity());

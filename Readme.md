@@ -8,14 +8,14 @@ Build and Deploy hello
 2. Open a command prompt and navigate to the root directory of this microservice.
 3. Type this command to build and deploy the archive:
 
-        mvn clean install wildfly:deploy
+        mvn clean package wildfly:deploy
 
 4. This will deploy `target/hello.war` to the running instance of the server.
 
 Access the application
 ----------------------
 
-The application will be running at the following URL: <http://localhost:8080/hello/rest/hello>
+The application will be running at the following URL: <http://localhost:8080/hello/api/hello>
 
 Undeploy the Archive
 --------------------
