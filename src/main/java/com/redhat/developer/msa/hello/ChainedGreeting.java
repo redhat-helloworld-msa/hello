@@ -16,18 +16,13 @@
  */
 package com.redhat.developer.msa.hello;
 
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
+import feign.RequestLine;
 
-/**
- * A class extending {@link Application} and annotated with @ApplicationPath is the Java EE 7 "no XML" approach to activating
- * JAX-RS.
- *
- * <p>
- * Resources are served relative to the servlet path specified in the {@link ApplicationPath} annotation.
- * </p>
- */
-@ApplicationPath("/")
-public class JaxRsActivator extends Application {
-    /* class body intentionally left blank */
+import java.util.List;
+
+public interface ChainedGreeting {
+
+	@RequestLine("GET /")
+	public List<String> greetings();
+
 }
