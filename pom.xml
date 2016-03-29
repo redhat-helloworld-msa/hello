@@ -57,6 +57,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<netflix.feign.version>8.15.1</netflix.feign.version>
+		<hystrix.version>1.5.1</hystrix.version>
 	</properties>
 
 
@@ -121,7 +122,30 @@
 			<artifactId>feign-jackson</artifactId>
 			<version>${netflix.feign.version}</version>
 		</dependency>
-		<!-- Used to set Timeout -->
+
+		<!-- hystrix-metrics-event-stream -->
+		<dependency>
+			<groupId>com.netflix.hystrix</groupId>
+			<artifactId>hystrix-core</artifactId>
+			<version>${hystrix.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.netflix.hystrix</groupId>
+			<artifactId>hystrix-metrics-event-stream</artifactId>
+			<version>${hystrix.version}</version>
+		</dependency>
+
+		<!-- We need a Servlet to enable hystrix-metrics-event-stream -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.servlet</groupId>
+			<artifactId>jboss-servlet-api_3.1_spec</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.annotation</groupId>
+			<artifactId>jboss-annotations-api_1.2_spec</artifactId>
+		</dependency>
+
+		<!-- Used to FeignHystrix Timeout -->
 		<dependency>
 			<groupId>com.netflix.archaius</groupId>
 			<artifactId>archaius-core</artifactId>
