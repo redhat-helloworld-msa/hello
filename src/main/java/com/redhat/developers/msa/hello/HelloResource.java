@@ -16,58 +16,66 @@
  */
 package com.redhat.developers.msa.hello;
 
-import com.netflix.hystrix.HystrixCommandProperties;
-import feign.hystrix.HystrixFeign;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+
+import com.netflix.config.ConfigurationManager;
+
+import feign.Logger;
+import feign.Logger.Level;
+import feign.hystrix.HystrixFeign;
+import feign.jackson.JacksonDecoder;
+
 @Path("/api")
 public class HelloResource {
 
-	/**
-	 * The next REST endpoint URL of the service chain to be called.
-	 */
-	private static final String NEXT_ENDPOINT_URL = "http://namaste:8080/api/namaste-chaining";
+    /**
+     * The next REST endpoint URL of the service chain to be called.
+     */
+    private static final String NEXT_ENDPOINT_URL = "http://namaste:8080/";
 
-	/**
-	 * Setting Hystrix timeout for the chain in 1250ms (we have 5 more chained service calls).
-	 */
-	static {
-		HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(1250);
-	}
+    /**
+     * Setting Hystrix timeout for the chain in 1250ms (we have 5 more chained service calls).
+     */
+    static {
+        ConfigurationManager.getConfigInstance().setProperty("hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds", 1250);
+    }
 
-	@GET
-	@Path("/hello")
-	@Produces("text/plain")
-	public String hello() {
-		String hostname = System.getenv().getOrDefault("HOSTNAME", "unknown");
-		return String.format("Hello from %s", hostname);
-	}
+    @GET
+    @Path("/hello")
+    @Produces("text/plain")
+    public String hello() {
+        String hostname = System.getenv().getOrDefault("HOSTNAME", "unknown");
+        return String.format("Hello from %s", hostname);
+    }
 
-	@GET
-	@Path("/hello-chaining")
-	@Produces("application/json")
-	public List<String> helloChaining() {
-		List<String> greetings = new ArrayList<>();
-		greetings.add(hello());
-		greetings.addAll(createFeign().greetings());
-		return greetings;
-	}
+    @GET
+    @Path("/hello-chaining")
+    @Produces("application/json")
+    public List<String> helloChaining() {
+        List<String> greetings = new ArrayList<>();
+        greetings.add(hello());
+        greetings.addAll(getNextService().namaste());
+        return greetings;
+    }
 
-	/**
-	 * This is were the "magic" happens: it creates a Feign, which is a proxy interface for remote
-	 * calling a REST endpoint with Hystrix fallback support.
-	 *
-	 * @return The feign pointing to the service URL and with Hystrix fallback.
-	 */
-	private ChainedGreeting createFeign() {
-		return HystrixFeign.builder().target(ChainedGreeting.class, NEXT_ENDPOINT_URL,
-				() -> Collections.singletonList("Namaste response (fallback)"));
-	}
+    /**
+     * This is were the "magic" happens: it creates a Feign, which is a proxy interface for remote calling a REST endpoint with
+     * Hystrix fallback support.
+     *
+     * @return The feign pointing to the service URL and with Hystrix fallback.
+     */
+    private NamasteService getNextService() {
+        return HystrixFeign.builder()
+            .logger(new Logger.ErrorLogger()).logLevel(Level.BASIC)
+            .decoder(new JacksonDecoder())
+            .target(NamasteService.class, NEXT_ENDPOINT_URL,
+                () -> Collections.singletonList("Namaste response (fallback)"));
+    }
 
 }
