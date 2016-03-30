@@ -24,8 +24,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import com.netflix.config.ConfigurationManager;
-
 import feign.Logger;
 import feign.Logger.Level;
 import feign.hystrix.HystrixFeign;
@@ -34,17 +32,6 @@ import feign.jackson.JacksonDecoder;
 @Path("/api")
 public class HelloResource {
 
-    /**
-     * The next REST endpoint URL of the service chain to be called.
-     */
-    private static final String NEXT_ENDPOINT_URL = "http://namaste:8080/";
-
-    /**
-     * Setting Hystrix timeout for the chain in 1250ms (we have 5 more chained service calls).
-     */
-    static {
-        ConfigurationManager.getConfigInstance().setProperty("hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds", 1250);
-    }
 
     @GET
     @Path("/hello")
@@ -60,7 +47,7 @@ public class HelloResource {
     public List<String> helloChaining() {
         List<String> greetings = new ArrayList<>();
         greetings.add(hello());
-        greetings.addAll(getNextService().namaste());
+        greetings.addAll(getNextService().namasteChaining());
         return greetings;
     }
 
@@ -74,7 +61,7 @@ public class HelloResource {
         return HystrixFeign.builder()
             .logger(new Logger.ErrorLogger()).logLevel(Level.BASIC)
             .decoder(new JacksonDecoder())
-            .target(NamasteService.class, NEXT_ENDPOINT_URL,
+            .target(NamasteService.class, "http://namaste:8080/",
                 () -> Collections.singletonList("Namaste response (fallback)"));
     }
 

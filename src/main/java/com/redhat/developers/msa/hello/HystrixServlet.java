@@ -1,19 +1,24 @@
 package com.redhat.developers.msa.hello;
 
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 
-/**
- * Servlet implementation class HystrixServlet
- */
-@WebServlet(
-    name = "HystrixMetricsStreamServlet",
-    description = "Exposes metrics in a text/event-stream formatted stream that continues as long as a client holds the connection.",
-    urlPatterns = { "/hystrix.stream" }
-)
-public class HystrixServlet extends HystrixMetricsStreamServlet {
+@WebListener
+public class HystrixServlet implements ServletContextListener {
 
-    private static final long serialVersionUID = 1L;
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        sce.getServletContext()
+            .addServlet("HystrixMetricsStreamServlet", HystrixMetricsStreamServlet.class)
+            .addMapping("/hystrix.stream");
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+
+    }
 
 }
