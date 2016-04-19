@@ -76,7 +76,13 @@
 		<fabric8.service.type>LoadBalancer</fabric8.service.type>
 		<fabric8.label.group>msa</fabric8.label.group>
 		<fabric8.label.hystrix-enable>true</fabric8.label.hystrix-enable>
-		<fabric8.iconRef>java</fabric8.iconRef>
+		<fabric8.iconRef>icons/java</fabric8.iconRef>
+
+		<!-- Readness Probe -->
+		<fabric8.readinessProbe.httpGet.path>/api/hello</fabric8.readinessProbe.httpGet.path>
+		<fabric8.readinessProbe.httpGet.port>8080</fabric8.readinessProbe.httpGet.port>
+		<fabric8.readinessProbe.initialDelaySeconds>5</fabric8.readinessProbe.initialDelaySeconds>
+		<fabric8.readinessProbe.timeoutSeconds>30</fabric8.readinessProbe.timeoutSeconds>
 	</properties>
 
 
