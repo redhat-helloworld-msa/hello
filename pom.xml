@@ -75,7 +75,7 @@
 		<fabric8.service.containerPort>8080</fabric8.service.containerPort>
 		<fabric8.service.type>LoadBalancer</fabric8.service.type>
 		<fabric8.label.group>msa</fabric8.label.group>
-		<fabric8.label.hystrix-enable>true</fabric8.label.hystrix-enable>
+		<fabric8.label.hystrix.enabled>true</fabric8.label.hystrix.enabled>
 		<fabric8.iconRef>icons/java</fabric8.iconRef>
 
 		<!-- Readness Probe -->
