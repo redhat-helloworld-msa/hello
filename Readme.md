@@ -25,3 +25,13 @@ Undeploy the Archive
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn wildfly:undeploy
+
+Deploy the application in Openshift
+-----------------------------------
+
+1. Make sure to be connected to the Docker Daemon
+2. Execute
+
+		mvn clean package docker:build fabric8:json fabric8:apply -Popenshift
+
+
