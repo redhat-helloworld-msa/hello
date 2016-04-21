@@ -57,7 +57,11 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<netflix.feign.version>8.15.1</netflix.feign.version>
+
+		<!-- other versions -->
 		<hystrix.version>1.5.1</hystrix.version>
+		<brave.version>3.5.0</brave.version>
+
 
 		<!-- fabric8 version -->
 		<fabric8.version>2.2.105</fabric8.version>
@@ -79,7 +83,7 @@
 		<fabric8.iconRef>icons/java</fabric8.iconRef>
 
 		<!-- Readness Probe -->
-		<fabric8.readinessProbe.httpGet.path>/api/hello</fabric8.readinessProbe.httpGet.path>
+		<fabric8.readinessProbe.httpGet.path>/api/health</fabric8.readinessProbe.httpGet.path>
 		<fabric8.readinessProbe.httpGet.port>8080</fabric8.readinessProbe.httpGet.port>
 		<fabric8.readinessProbe.initialDelaySeconds>5</fabric8.readinessProbe.initialDelaySeconds>
 		<fabric8.readinessProbe.timeoutSeconds>30</fabric8.readinessProbe.timeoutSeconds>
@@ -147,6 +151,12 @@
 			<artifactId>feign-jackson</artifactId>
 			<version>${netflix.feign.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.netflix.feign</groupId>
+			<artifactId>feign-httpclient</artifactId>
+			<version>${netflix.feign.version}</version>
+		</dependency>
+
 
 		<!-- hystrix-metrics-event-stream -->
 		<dependency>
@@ -158,6 +168,28 @@
 			<groupId>com.netflix.hystrix</groupId>
 			<artifactId>hystrix-metrics-event-stream</artifactId>
 			<version>${hystrix.version}</version>
+		</dependency>
+
+		<!-- Brave Zipkin -->
+		<dependency>
+			<groupId>com.github.kristofa</groupId>
+			<artifactId>brave-web-servlet-filter</artifactId>
+			<version>${brave.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.kristofa</groupId>
+			<artifactId>brave-apache-http-interceptors</artifactId>
+			<version>${brave.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.kristofa</groupId>
+			<artifactId>brave-spancollector-http</artifactId>
+			<version>${brave.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
 		</dependency>
 
 		<!-- We need a Servlet to enable hystrix-metrics-event-stream -->

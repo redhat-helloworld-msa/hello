@@ -16,20 +16,31 @@
  */
 package com.redhat.developers.msa.hello;
 
+import java.util.EnumSet;
+
+import javax.inject.Inject;
+import javax.servlet.FilterRegistration.Dynamic;
+import javax.servlet.DispatcherType;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
+import com.github.kristofa.brave.Brave;
+import com.github.kristofa.brave.http.DefaultSpanNameProvider;
+import com.github.kristofa.brave.servlet.BraveServletFilter;
 
 @WebListener
-public class HystrixServlet implements ServletContextListener {
+public class ZipKinFilter implements ServletContextListener {
+
+    @Inject
+    private Brave brave;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        sce.getServletContext()
-            .addServlet("HystrixMetricsStreamServlet", HystrixMetricsStreamServlet.class)
-            .addMapping("/hystrix.stream");
+        Dynamic filterRegistration = sce.getServletContext().addFilter("BraveServletFilter",
+            new BraveServletFilter(brave.serverRequestInterceptor(), brave.serverResponseInterceptor(), new DefaultSpanNameProvider()));
+        // Explicit mapping to avoid trace on readiness probe
+        filterRegistration.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), false, "/api/hello", "/api/hello-chaining");
     }
 
     @Override

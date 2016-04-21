@@ -16,25 +16,26 @@
  */
 package com.redhat.developers.msa.hello;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
+import javax.enterprise.inject.Produces;
+import javax.inject.Singleton;
 
-import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
+import com.github.kristofa.brave.Brave;
+import com.github.kristofa.brave.EmptySpanCollectorMetricsHandler;
+import com.github.kristofa.brave.http.HttpSpanCollector;
 
-@WebListener
-public class HystrixServlet implements ServletContextListener {
+/**
+ * This class uses CDI to alias Zipkin resources to CDI beans
+ *
+ */
+public class ZipkinResource {
 
-    @Override
-    public void contextInitialized(ServletContextEvent sce) {
-        sce.getServletContext()
-            .addServlet("HystrixMetricsStreamServlet", HystrixMetricsStreamServlet.class)
-            .addMapping("/hystrix.stream");
-    }
-
-    @Override
-    public void contextDestroyed(ServletContextEvent sce) {
-
+    @Produces
+    @Singleton
+    public Brave getBrave() {
+        Brave brave = new Brave.Builder("hello")
+            .spanCollector(HttpSpanCollector.create("http://zipkin-query:9411", new EmptySpanCollectorMetricsHandler()))
+            .build();
+        return brave;
     }
 
 }

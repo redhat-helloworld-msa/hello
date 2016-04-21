@@ -23,6 +23,6 @@ import java.util.List;
 public interface NamasteService {
 
 	@RequestLine("GET /api/namaste-chaining")
-	public List<String> namasteChaining();
+	public List<String> namaste();
 
 }
