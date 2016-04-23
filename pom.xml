@@ -56,11 +56,12 @@
 		<!-- maven-compiler-plugin -->
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
-		<netflix.feign.version>8.15.1</netflix.feign.version>
 
 		<!-- other versions -->
 		<hystrix.version>1.5.1</hystrix.version>
 		<brave.version>3.5.0</brave.version>
+		<netflix.feign.version>8.15.1</netflix.feign.version>
+		<swagger.version>1.5.8</swagger.version>
 
 
 		<!-- fabric8 version -->
@@ -200,6 +201,13 @@
 		<dependency>
 			<groupId>org.jboss.spec.javax.annotation</groupId>
 			<artifactId>jboss-annotations-api_1.2_spec</artifactId>
+		</dependency>
+
+		<!-- Swagger -->
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-jaxrs</artifactId>
+			<version>${swagger.version}</version>
 		</dependency>
 	</dependencies>
 
