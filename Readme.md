@@ -1,8 +1,10 @@
 # hello
 Hello microservice using Java EE (JAX-RS) on EAP
 
-Build and Deploy hello
--------------------------
+The detailed instructions to run *Red Hat Helloworld MSA* demo, can be found at the following repository: <https://github.com/redhat-helloworld-msa/helloworld-msa>
+
+Build and Deploy hello locally
+------------------------------
 
 1. Make sure you have started the JBoss EAP server
 2. Open a command prompt and navigate to the root directory of this microservice.
@@ -11,11 +13,7 @@ Build and Deploy hello
         mvn clean package wildfly:deploy
 
 4. This will deploy `target/hello.war` to the running instance of the server.
-
-Access the application
-----------------------
-
-The application will be running at the following URL: <http://localhost:8080/hello/api/hello>
+5. The application will be running at the following URL: <http://localhost:8080/hello/api/hello>
 
 Undeploy the Archive
 --------------------
