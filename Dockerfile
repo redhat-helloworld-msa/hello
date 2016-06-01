@@ -1,4 +1,4 @@
-FROM jboss-eap-7-beta/eap70-openshift
+FROM registry.access.redhat.com/jboss-eap-7-beta/eap70-openshift
 
 ENV JAVA_OPTS="-Xms64m -Xmx512m -Djboss.modules.system.pkgs=org.jboss.logmanager"
 
