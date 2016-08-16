@@ -59,7 +59,7 @@
 
 		<!-- other versions -->
 		<hystrix.version>1.5.1</hystrix.version>
-		<brave.version>3.5.0</brave.version>
+		<brave.version>3.9.1</brave.version>
 		<netflix.feign.version>8.15.1</netflix.feign.version>
 		<swagger.version>1.5.8</swagger.version>
 
@@ -173,17 +173,17 @@
 
 		<!-- Brave Zipkin -->
 		<dependency>
-			<groupId>com.github.kristofa</groupId>
+			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave-web-servlet-filter</artifactId>
 			<version>${brave.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github.kristofa</groupId>
+			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave-apache-http-interceptors</artifactId>
 			<version>${brave.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github.kristofa</groupId>
+			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave-spancollector-http</artifactId>
 			<version>${brave.version}</version>
 		</dependency>
