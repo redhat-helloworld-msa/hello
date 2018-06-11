@@ -69,7 +69,7 @@
 		<docker.maven.plugin.version>0.15.8</docker.maven.plugin.version>
 
 		<!-- Docker & Fabric8 Configs -->
-		<docker.from>jboss-eap-7-beta/eap70-openshift:1.3</docker.from>
+		<docker.from>registry.access.redhat.com/jboss-eap-7/eap71-openshift</docker.from>
 		<fabric8.dockerUser>redhatmsa/</fabric8.dockerUser>
 		<docker.image>${fabric8.dockerUser}${project.artifactId}:${project.version}</docker.image>
 		<docker.port.container.jolokia>8778</docker.port.container.jolokia>
